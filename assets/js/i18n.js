@@ -4,6 +4,21 @@ const translations = {
     heroTitle: "കേരളത്തിലെ കുടിയേറ്റ തൊഴിലാളികൾക്കായുള്ള ഡിജിറ്റൽ ആരോഗ്യം",
     heroDesc: "ഒരു റെക്കോർഡ്. ആറ് ഭാഷകൾ. യഥാർത്ഥ സമയ സമന്വയം."
   },
+ const translations = {
+  en: {
+    appTitle: "CodeMedics",
+    heroTitle: "Digital Health for Migrant Workers",
+    heroDesc: "One record. Seven languages. Real-time sync. Disease prevention.",
+    registerTitle: "Register as Worker",
+    // Add more keys as you create more pages
+  },
+  ml: {
+    appTitle: "കോഡ്മെഡിക്സ്",
+    heroTitle: "കേരളത്തിലെ കുടിയേറ്റ തൊഴിലാളികൾക്കായുള്ള ഡിജിറ്റൽ ആരോഗ്യം",
+    heroDesc: "ഒരു റെക്കോർഡ്. ഏഴ് ഭാഷകൾ. യഥാർത്ഥ സമയ സമന്വയം."
+  },
+  // ... rest of languages (hi, ta, te, bn, ur)
+};
   hi: {
     appTitle: "कोडमेडिक्स",
     heroTitle: "प्रवासी श्रमिकों के लिए डिजिटल स्वास्थ्य",

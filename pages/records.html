@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Records - CodeMedics</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .records-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .record-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .record-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .record-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #1B5E20;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-active {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+        .status-expired {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+    </style>
+</head>
+<body>
+    <header class="cm-header">
+        <div class="container">
+            <div class="header-left">
+                <h1 class="brand-title" data-i18n="appTitle">CodeMedics</h1>
+            </div>
+            <div class="header-right">
+                <select id="language-switcher" class="lang-select">
+                    <option value="en">English</option>
+                    <option value="ml">മലയാളം</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="ur">اردو</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="records-container">
+        <h2>Health Records</h2>
+        <p>View and manage digital health records for registered workers.</p>
+
+        <div class="record-card">
+            <div class="record-header">
+                <div class="record-title">Rajesh Kumar — ID: CM-88271</div>
+                <span class="status-badge status-active">Active</span>
+            </div>
+            <p><strong>Last Visit:</strong> 10 May 2025 — Vaccination (Hepatitis B)</p>
+            <p><strong>Symptoms Reported:</strong> Fever, Cough</p>
+            <p><strong>Language:</strong> Hindi</p>
+        </div>
+
+        <div class="record-card">
+            <div class="record-header">
+                <div class="record-title">Suresh Babu — ID: CM-99382</div>
+                <span class="status-badge status-expired">Expired</span>
+            </div>
+            <p><strong>Last Visit:</strong> 15 March 2025 — General Checkup</p>
+            <p><strong>Symptoms Reported:</strong> Headache</p>
+            <p><strong>Language:</strong> Malayalam</p>
+        </div>
+    </main>
+
+    <script src="../assets/js/i18n.js"></script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
