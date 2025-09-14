@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CodeMedics</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="cm-header">
+        <div class="container">
+            <div class="header-left">
+                <h1 class="brand-title" data-i18n="appTitle">CodeMedics</h1>
+            </div>
+            <div class="header-right">
+                <select id="language-switcher" class="lang-select">
+                    <option value="ml">മലയാളം</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="ur">اردو</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="max-width: 500px; margin: 50px auto; background: white; padding: 30px; border-radius: 16px; color: #333;">
+            <h2 data-i18n="registerTitle">Register as Worker</h2>
+            <form id="register-form" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                <input type="text" placeholder="Full Name" required>
+                <input type="tel" placeholder="Phone Number" required>
+                <select>
+                    <option value="" disabled selected>Select Language</option>
+                    <option value="ml">Malayalam</option>
+                    <option value="hi">Hindi</option>
+                    <option value="ta">Tamil</option>
+                    <option value="te">Telugu</option>
+                    <option value="bn">Bengali</option>
+                    <option value="ur">Urdu</option>
+                </select>
+                <button type="submit" class="cm-btn primary">Generate Health ID</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="../assets/js/i18n.js"></script>
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Health ID Generated! (Simulated)");
+        });
+    </script>
+</body>
+</html>
