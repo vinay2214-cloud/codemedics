@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Health ID - CodeMedics</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- Google Fonts for Indian Languages -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Bengali:wght@400;600&family=Noto+Nastaliq+Urdu:wght@400;600&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="cm-header">
+        <div class="container header-content">
+            <a href="../index.html" class="brand-title">CodeMedics</a>
+            <select id="language-switcher" class="lang-select">
+                <option value="en">English</option>
+                <option value="ml">മലയാളം</option>
+                <option value="hi">हिन्दी</option>
+                <option value="ta">தமிழ்</option>
+                <option value="te">తెలుగు</option>
+                <option value="ur">اردو</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 40px 20px; text-align: center;">
+        <h2 data-i18n="scanTitle">Scan Worker's Health ID QR Code</h2>
+        <p data-i18n="scanDesc">Point the camera at the QR code to load health record.</p>
+
+        <!-- QR Scanner Element -->
+        <div id="qr-reader" style="width: 100%; max-width: 300px; margin: 30px auto;"></div>
+
+        <!-- Result Display (Hidden Initially) -->
+        <div id="result" style="display: none; margin-top: 30px; background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <h3 data-i18n="recordLoaded">Patient Record Loaded</h3>
+            <p><strong data-i18n="patientName">Name:</strong> <span id="patient-name">Rajesh Kumar</span></p>
+            <p><strong data-i18n="healthId">Health ID:</strong> <span id="patient-id">CM-88271</span></p>
+            <p><strong data-i18n="lastVisit">Last Visit:</strong> <span id="last-visit">10 May 2025 — Vaccination (Hepatitis B)</span></p>
+            <p><strong data-i18n="symptoms">Symptoms Reported:</strong> <span id="symptoms-list">Fever, Cough</span></p>
+            <p><strong data-i18n="language">Language:</strong> <span id="patient-lang">Hindi</span></p>
+            <a href="records.html" class="cm-btn primary" style="margin-top: 20px;">View Full Record</a>
+        </div>
+    </main>
+
+    <!-- QR Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+    <!-- Core Scripts -->
+    <script src="../assets/js/i18n.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lang = localStorage.getItem('userLang') || 'en';
+            translatePage(lang);
+
+            // Initialize QR Scanner
+            function onScanSuccess(decodedText, decodedResult) {
+                // Simulate patient data based on Health ID
+                const patientData = {
+                    "CM-88271": {
+                        name: { en: "Rajesh Kumar", ml: "രാജേഷ് കുമാർ", hi: "राजेश कुमार", ta: "ராஜேஷ் குமார்", te: "రాజేష్ కుమార్", ur: "راجیش کمار" },
+                        lastVisit: "10 May 2025 — Vaccination (Hepatitis B)",
+                        symptoms: "Fever, Cough",
+                        lang: "Hindi"
+                    },
+                    "CM-99382": {
+                        name: { en: "Suresh Babu", ml: "സുരേഷ് ബാബു", hi: "सुरेश बाबू", ta: "சுரேஷ் பாபு", te: "సురేష్ బాబు", ur: "سوریش بابو" },
+                        lastVisit: "15 March 2025 — General Checkup",
+                        symptoms: "Headache",
+                        lang: "Malayalam"
+                    }
+                };
+
+                const data = patientData[decodedText] || {
+                    name: { en: "Unknown Worker", ml: "അജ്ഞാത തൊഴിലാളി", hi: "अज्ञात श्रमिक", ta: "தெரியாத தொழிலாளர்", te: "తెలియని కార్మికుడు", ur: "نامعلوم مزدور" },
+                    lastVisit: "No record found",
+                    symptoms: "—",
+                    lang: "Unknown"
+                };
+
+                // Update UI
+                document.getElementById('patient-name').textContent = data.name[lang] || data.name.en;
+                document.getElementById('patient-id').textContent = decodedText;
+                document.getElementById('last-visit').textContent = data.lastVisit;
+                document.getElementById('symptoms-list').textContent = data.symptoms;
+                document.getElementById('patient-lang').textContent = data.lang;
+
+                // Show result, hide scanner
+                document.getElementById('qr-reader').style.display = 'none';
+                document.getElementById('result').style.display = 'block';
+            }
+
+            const html5QrCode = new Html5Qrcode("qr-reader");
+            html5QrCode.start(
+                { facingMode: "environment" }, // Use back camera
+                {
+                    fps: 10,
+                    qrbox: { width: 250, height: 250 }
+                },
+                onScanSuccess
+            ).catch(err => {
+                console.error("QR Scanner failed to start:", err);
+                alert("Camera access denied or not supported. Please allow camera permission.");
+            });
+        });
+    </script>
+</body>
+</html>
