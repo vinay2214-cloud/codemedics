@@ -214,31 +214,56 @@
             });
 
             // Handle submit
-            document.getElementById('submit-btn').addEventListener('click', () => {
-                const selectedBtns = document.querySelectorAll('.symptom-btn.selected');
-                const selectedSymptoms = Array.from(selectedBtns).map(btn => btn.dataset.symptom);
+           document.getElementById('submit-btn').addEventListener('click', async () => {
+    const selectedBtns = document.querySelectorAll('.symptom-btn.selected');
+    const selectedSymptoms = Array.from(selectedBtns).map(btn => btn.dataset.symptom);
 
-                if (selectedSymptoms.length === 0) {
-                    alert("Please select at least one symptom.");
-                    return;
-                }
+    if (selectedSymptoms.length === 0) {
+        alert("Please select at least one symptom.");
+        return;
+    }
 
-                const analysis = getRiskAnalysis(selectedSymptoms, lang);
-                const resultDiv = document.getElementById('result');
-                const riskMsg = document.getElementById('risk-message');
-                const actionMsg = document.getElementById('action-message');
+    const analysis = getRiskAnalysis(selectedSymptoms, lang);
 
-                resultDiv.className = `alert-${analysis.level}`;
-                resultDiv.style.display = 'block';
-                riskMsg.textContent = analysis.message[lang] || analysis.message['en'];
-                actionMsg.textContent = analysis.action[lang] || analysis.action['en'];
+    // SIMULATE: In real app, you’d get Health ID from QR scan or login
+    const mockHealthId = "CM-ABC123"; // Replace with real ID in production
 
-                // Simulate AI processing
-                setTimeout(() => {
-                    alert("AI Analysis Complete. Health record updated.");
-                }, 1000);
-            });
+    try {
+        // Save to backend
+        const recordResponse = await fetch('http://localhost:5000/api/records', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                health_id: mockHealthId,
+                symptoms: selectedSymptoms.join(','),
+                risk_level: analysis.level,
+                notes: "AI Symptom Checker Report"
+            })
         });
+
+        const recordResult = await recordResponse.json();
+
+        if (recordResult.success) {
+            const resultDiv = document.getElementById('result');
+            const riskMsg = document.getElementById('risk-message');
+            const actionMsg = document.getElementById('action-message');
+
+            resultDiv.className = `alert-${analysis.level}`;
+            resultDiv.style.display = 'block';
+            riskMsg.textContent = analysis.message[lang] || analysis.message['en'];
+            actionMsg.textContent = analysis.action[lang] || analysis.action['en'];
+
+            setTimeout(() => {
+                alert("✅ Health record saved to server!");
+            }, 1000);
+        }
+    } catch (error) {
+        alert("Failed to save record. Is backend running?");
+        console.error(error);
+    }
+
     </script>
 </body>
 </html>
