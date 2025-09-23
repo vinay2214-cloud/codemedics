@@ -1,0 +1,5 @@
+exclude:
+  - codemedics-backend/
+  - README.md
+  - .gitignore
+  
